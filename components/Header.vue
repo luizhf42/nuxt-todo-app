@@ -5,7 +5,7 @@
       <nav>
         <ul>
           <li><NuxtLink to="/">Todo</NuxtLink></li>
-          <li><NuxtLink to="done">Done</NuxtLink></li>
+          <li><NuxtLink to="/done">Done</NuxtLink></li>
         </ul>
       </nav>
     </div>

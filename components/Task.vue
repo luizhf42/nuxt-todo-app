@@ -1,10 +1,10 @@
 <template>
-  <li>{{ text }}</li>
+  <li>{{ taskProps.text }}</li>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
-  text: String,
+  taskProps: Object,
 });
 </script>
 

@@ -15,6 +15,9 @@ module.exports = {
 		screens: {
 			sm: "460px",
 		},
+		fontFamily: {
+			sans: ["Lato", "sans-serif"],
+		},
 	},
 	plugins: [],
 };

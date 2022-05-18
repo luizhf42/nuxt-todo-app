@@ -1,14 +1,15 @@
 <template>
-  <Header />
-  <main>
-    <h2>
-      <slot name="heading" />
-    </h2>
-
-    <ul>
-      <slot />
-    </ul>
-  </main>
+  <div id="wrapper">
+    <Header />
+    <main>
+      <h2>
+        <slot name="heading" />
+      </h2>
+      <ul>
+        <slot />
+      </ul>
+    </main>
+  </div>
 </template>
 
 <style lang="postcss" scoped>

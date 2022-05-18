@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+	@apply font-sans;
+}
 body,
 #__nuxt {
 	@apply h-screen;
