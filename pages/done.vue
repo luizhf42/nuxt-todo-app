@@ -6,9 +6,10 @@
 </template>
 
 <script setup lang="ts">
-const doneTasks = [
-  { text: "Make coffee" },
-  { text: "Do the dishes" },
-  { text: "Code" },
-];
+import { useTodoStore } from "~~/store/todo.js";
+
+const todoStore = useTodoStore();
+const tasks = todoStore.tasks;
+const doneTasks = tasks.filter((task) => task.done);
 </script>
+

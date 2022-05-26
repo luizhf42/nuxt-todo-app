@@ -2,6 +2,7 @@
   <div id="wrapper">
     <Header />
     <main>
+      <AddTask />
       <h2>
         <slot name="heading" />
       </h2>

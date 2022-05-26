@@ -1,14 +1,15 @@
 <template>
   <NuxtLayout name="main">
     <template #heading><span>Tasks to-do</span></template>
-    <Task v-for="task in tasks" :key="task.text" :taskProps="task" />
+    <Task v-for="todo in todos" :key="todo.text" :taskProps="todo" />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-const tasks = [
-  { text: "Make coffee" },
-  { text: "Do the dishes" },
-  { text: "Code" },
-];
+import { storeToRefs } from "pinia";
+import { useTodoStore } from "~~/store/todo.js";
+
+const store = useTodoStore();
+const todoStore = storeToRefs(store);
+const todos = todoStore.tasks.filter((task) => !task.done);
 </script>
