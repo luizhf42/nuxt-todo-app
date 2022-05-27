@@ -36,16 +36,22 @@ const props = defineProps({
   taskProps: Object,
 });
 const getTaskIndex = (event) => {
-  return tasks.findIndex(
-    (task) =>
-    // This code gets the task index by its text and status (checking the page the user actually is), preventing the user from trying to delete a task and deleting another with the exact same text, but with different "done" status
+  return tasks.findIndex((task) => {
+    /* This code gets the task index by its text and status (checking the page the user actually is),
+       preventing the user from trying to delete a task and deleting another with the exact same text,
+       but with different "done" status. 
+       
+       @ts-ignore */
+    const taskStatus = window.location.pathname == "/done" ? task.done == true : task.done == false;
+
     // @ts-ignore
-      task.text == event.target.parentNode.parentNode.innerText && window.location.pathname == "/done" ? task.done == true : task.done == false
-  );
+    return task.text == event.target.parentNode.parentNode.innerText && taskStatus;
+  });
 };
 
 const deleteTask = (event) => {
   const taskIndex = getTaskIndex(event);
+  console.log(taskIndex);
   store.deleteTaskFromStore(taskIndex);
   updateTaskList();
 };

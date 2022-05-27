@@ -6,6 +6,7 @@ export const useTodoStore = defineStore("todo", {
 			{ text: "Do the dishes", done: false },
 			{ text: "Code", done: true },
 		];
+
 		return { tasks };
 	},
 	actions: {
@@ -13,7 +14,7 @@ export const useTodoStore = defineStore("todo", {
 			this.tasks.push({ text: text, done: done });
 		},
 
-		deleteTaskFromStore(taskIndex) {
+		deleteTaskFromStore(taskIndex: number) {
 			this.tasks.splice(taskIndex, 1);
 		},
 	},

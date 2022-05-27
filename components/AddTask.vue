@@ -31,12 +31,12 @@ input.task {
 }
 
 input.task:focus {
-  @apply outline-slate-500;
+  @apply outline-sky-800;
 }
 
 button {
   @apply bg-sky-800 aspect-square text-2xl text-white font-bold;
-  height: 35px;
+  height: 36px;
   margin-left: -5px;
 }
 </style>
