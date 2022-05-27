@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="addTask">
-    <input v-model="inputText" type="text" placeholder="Add your task" />
+    <input class="task" v-model="inputText" type="text" placeholder="Add your task" />
     <button>+</button>
   </form>
 </template>
@@ -25,14 +25,12 @@ const addTask = () => {
 form {
   @apply flex items-center justify-center w-full mb-6;
 }
-input {
-  @apply p-1 bg-slate-200 border-slate-300 border;
-  height: 35px;
+input.task {
   padding-right: 8px;
   width: clamp(250px, 80%, 400px);
 }
 
-input:focus {
+input.task:focus {
   @apply outline-slate-500;
 }
 

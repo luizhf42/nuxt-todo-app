@@ -35,12 +35,17 @@ const { tasks } = store;
 const props = defineProps({
   taskProps: Object,
 });
+const getTaskIndex = (event) => {
+  return tasks.findIndex(
+    (task) =>
+    // This code gets the task index by its text and status (checking the page the user actually is), preventing the user from trying to delete a task and deleting another with the exact same text, but with different "done" status
+    // @ts-ignore
+      task.text == event.target.parentNode.parentNode.innerText && window.location.pathname == "/done" ? task.done == true : task.done == false
+  );
+};
 
 const deleteTask = (event) => {
-  const taskIndex = tasks.findIndex(
-    // @ts-ignore
-    (task) => task.text == event.target.parentNode.parentNode.innerText
-  );
+  const taskIndex = getTaskIndex(event);
   store.deleteTaskFromStore(taskIndex);
   updateTaskList();
 };
@@ -52,9 +57,8 @@ const updateTaskList = () => {
 </script>
 
 <style lang="postcss" scoped>
-li {
-  @apply w-full p-1 bg-slate-200 border-slate-300 border mb-2 flex items-center justify-between;
-  height: 35px;
+li.task {
+  @apply w-full mb-2 flex items-center justify-between;
 }
 
 .done {
