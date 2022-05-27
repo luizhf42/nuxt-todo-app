@@ -7,17 +7,14 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
 import { useTodoStore } from "~~/store/todo";
 
 const store = useTodoStore();
-const { tasks } = storeToRefs(store);
-const doneTasks = store.getDoneTasks;
+const doneTasks = ref(store.getDoneTasks);
 
 const addDoneTask = ({ text, done }) => {
-  doneTasks.push({ text: text, done: done });
   store.addTaskInStore(text, done);
-  console.log(doneTasks);
+  doneTasks.value = store.getDoneTasks;
 };
 </script>
 
