@@ -1,15 +1,28 @@
 <template>
-  <form @submit.prevent="todoStore.add(inputText.trim())">
+  <form @submit.prevent="addTask">
     <input v-model="inputText" type="text" placeholder="Add your task" />
     <button>+</button>
   </form>
 </template>
 
 <script setup lang="ts">
-import { useTodoStore } from "~~/store/todo.js";
+import { useTodoStore } from "~~/store/todo";
 
+const emit = defineEmits(["add-todo", "add-done-task"]);
 const todoStore = useTodoStore();
-const inputText = ref<string>("");
+const inputText = ref("");
+
+const addTask = () => {
+  const text = inputText.value.trim();
+  const isInTheDonePage = window.location.pathname == "/done" ? true : false;
+
+  if (isInTheDonePage) emit("add-done-task", { text: text, done: true });
+  else emit("add-todo", { text: text, done: false });
+
+  // todoStore.addTaskInStore(text, isInTheDonePage);
+
+  inputText.value = "";
+};
 </script>
 
 <style lang="postcss" scoped>
