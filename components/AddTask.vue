@@ -9,7 +9,6 @@
 import { useTodoStore } from "~~/store/todo";
 
 const emit = defineEmits(["add-todo", "add-done-task"]);
-const todoStore = useTodoStore();
 const inputText = ref("");
 
 const addTask = () => {
@@ -18,8 +17,6 @@ const addTask = () => {
 
   if (isInTheDonePage) emit("add-done-task", { text: text, done: true });
   else emit("add-todo", { text: text, done: false });
-
-  // todoStore.addTaskInStore(text, isInTheDonePage);
 
   inputText.value = "";
 };

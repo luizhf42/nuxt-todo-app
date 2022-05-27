@@ -12,6 +12,10 @@ export const useTodoStore = defineStore("todo", {
 		addTaskInStore(text: string, done: boolean): void {
 			this.tasks.push({ text: text, done: done });
 		},
+
+		deleteTaskFromStore(taskIndex) {
+			this.tasks.splice(taskIndex, 1);
+		},
 	},
 	getters: {
 		getTasksTodo() {

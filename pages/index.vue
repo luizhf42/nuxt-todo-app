@@ -2,7 +2,13 @@
   <NuxtLayout name="main">
     <template #addTaskForm><AddTask @add-todo="addTodo" /></template>
     <template #heading><span>Tasks to-do</span></template>
-    <Task v-for="todo in todos" :key="todo.text" :taskProps="todo" />
+    <Task
+      v-for="(todo, index) in todos"
+      :key="todo.text"
+      :id="index"
+      :taskProps="todo"
+      @update-todos="updateTodos"
+    />
   </NuxtLayout>
 </template>
 
@@ -14,6 +20,8 @@ const todos = ref(store.getTasksTodo);
 
 const addTodo = ({ text, done }) => {
   store.addTaskInStore(text, done);
-  todos.value = store.getTasksTodo;
+  updateTodos();
 };
+
+const updateTodos = () => (todos.value = store.getTasksTodo);
 </script>

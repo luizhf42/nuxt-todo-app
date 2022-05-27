@@ -1,3 +1,5 @@
+import { useTodoStore } from "~~/store/todo";
+
 <template>
   <li>
     <span :class="taskProps.done && 'done'">{{ taskProps.text }}</span>
@@ -18,15 +20,35 @@
         src="~/assets/images/trash.svg"
         alt="Delete the task"
         role="button"
+        @click="deleteTask($event)"
       />
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
+import { useTodoStore } from "~~/store/todo";
+
+const emit = defineEmits(["update-todos", "update-done-tasks"]);
+const store = useTodoStore();
+const { tasks } = store;
 const props = defineProps({
   taskProps: Object,
 });
+
+const deleteTask = (event) => {
+  const taskIndex = tasks.findIndex(
+    // @ts-ignore
+    (task) => task.text == event.target.parentNode.parentNode.innerText
+  );
+  store.deleteTaskFromStore(taskIndex);
+  updateTaskList();
+};
+
+const updateTaskList = () => {
+  if (window.location.pathname == "/done") emit("update-done-tasks");
+  else emit("update-todos");
+};
 </script>
 
 <style lang="postcss" scoped>
