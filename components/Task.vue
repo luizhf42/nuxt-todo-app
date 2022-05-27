@@ -1,7 +1,7 @@
 import { useTodoStore } from "~~/store/todo";
 
 <template>
-  <li>
+  <li class="task">
     <span :class="taskProps.done && 'done'">{{ taskProps.text }}</span>
     <div class="actions">
       <img
