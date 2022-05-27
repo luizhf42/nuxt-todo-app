@@ -6,8 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { useTodoStore } from "~~/store/todo";
-
 const emit = defineEmits(["add-todo", "add-done-task"]);
 const inputText = ref("");
 
@@ -15,9 +13,10 @@ const addTask = () => {
   const text = inputText.value.trim();
   const isInTheDonePage = window.location.pathname == "/done" ? true : false;
 
-  if (isInTheDonePage) emit("add-done-task", { text: text, done: true });
-  else emit("add-todo", { text: text, done: false });
-
+  if (text.length) {
+    if (isInTheDonePage) emit("add-done-task", { text: text, done: true });
+    else emit("add-todo", { text: text, done: false });
+  }
   inputText.value = "";
 };
 </script>
