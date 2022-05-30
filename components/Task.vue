@@ -9,12 +9,14 @@ import { useTodoStore } from "~~/store/todo";
         alt="Undo the task"
         v-if="taskProps.done"
         role="button"
+        @click="changeTaskStatus($event)"
       />
       <img
         src="~/assets/images/check.svg"
         alt="Mark the task as done"
         v-else
         role="button"
+        @click="changeTaskStatus($event)"
       />
       <img
         src="~/assets/images/trash.svg"
@@ -35,6 +37,7 @@ const { tasks } = store;
 const props = defineProps({
   taskProps: Object,
 });
+
 const getTaskIndex = (event) => {
   return tasks.findIndex((task) => {
     /* This code gets the task index by its text and status (checking the page the user actually is),
@@ -49,9 +52,14 @@ const getTaskIndex = (event) => {
   });
 };
 
+const changeTaskStatus = (event) => {
+  const taskIndex = getTaskIndex(event);
+  store.changeTaskStatus(taskIndex);
+  updateTaskList();
+}
+
 const deleteTask = (event) => {
   const taskIndex = getTaskIndex(event);
-  console.log(taskIndex);
   store.deleteTaskFromStore(taskIndex);
   updateTaskList();
 };

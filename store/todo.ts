@@ -17,6 +17,9 @@ export const useTodoStore = defineStore("todo", {
 		deleteTaskFromStore(taskIndex: number) {
 			this.tasks.splice(taskIndex, 1);
 		},
+		changeTaskStatus(taskIndex: number) {
+			this.tasks[taskIndex].done = !this.tasks[taskIndex].done;
+		}
 	},
 	getters: {
 		getTasksTodo() {
