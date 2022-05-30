@@ -1,8 +1,12 @@
-import { useTodoStore } from "~~/store/todo";
-
 <template>
   <li class="task">
-    <span :class="taskProps.done && 'done'">{{ taskProps.text }}</span>
+    <span
+      contenteditable
+      @focus="getSpanTextBeforeChange($event)"
+      @focusout="changeTaskText($event)"
+      :class="taskProps.done && 'done'"
+      >{{ taskProps.text }}</span
+    >
     <div class="actions">
       <img
         src="~/assets/images/undo.svg"
@@ -32,13 +36,14 @@ import { useTodoStore } from "~~/store/todo";
 import { useTodoStore } from "~~/store/todo";
 
 const emit = defineEmits(["update-todos", "update-done-tasks"]);
-const store = useTodoStore();
-const { tasks } = store;
 const props = defineProps({
   taskProps: Object,
 });
 
-const getTaskIndex = (event) => {
+const store = useTodoStore();
+const { tasks } = store;
+
+const getTaskIndexFromButton = (event) => {
   return tasks.findIndex((task) => {
     /* This code gets the task index by its text and status (checking the page the user actually is),
        preventing the user from trying to delete a task and deleting another with the exact same text,
@@ -52,14 +57,38 @@ const getTaskIndex = (event) => {
   });
 };
 
-const changeTaskStatus = (event) => {
-  const taskIndex = getTaskIndex(event);
-  store.changeTaskStatus(taskIndex);
-  updateTaskList();
+const getTaskIndexFromSpan = (spanText) => {
+   return tasks.findIndex((task) => {
+    /* The same logic from the getTaskIndexFromButton function.
+       @ts-ignore */
+    const taskStatus = window.location.pathname == "/done" ? task.done == true : task.done == false;
+
+    // @ts-ignore
+    return task.text == spanText && taskStatus;
+  });
 }
 
+const getSpanTextBeforeChange = (event) => {
+  // get the text before change and make it accessible to the changeTaskText function
+  spanTextBeforeChange.value = event.target.innerText;
+};
+const spanTextBeforeChange = ref("");
+
+const changeTaskText = (event) => {
+  const spanText = event.target.innerText;
+  const taskIndex = getTaskIndexFromSpan(spanTextBeforeChange.value);
+  store.changeTaskText(spanText, taskIndex);
+  updateTaskList();
+  event.target.innerText = spanText.trim();
+};
+const changeTaskStatus = (event) => {
+  const taskIndex = getTaskIndexFromButton(event);
+  store.changeTaskStatus(taskIndex);
+  updateTaskList();
+};
+
 const deleteTask = (event) => {
-  const taskIndex = getTaskIndex(event);
+  const taskIndex = getTaskIndexFromButton(event);
   store.deleteTaskFromStore(taskIndex);
   updateTaskList();
 };
@@ -82,6 +111,13 @@ li.task {
 
 span {
   @apply text-lg;
+  max-height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+span:focus {
+  outline: 0;
 }
 .actions {
   @apply h-full flex items-center gap-3;

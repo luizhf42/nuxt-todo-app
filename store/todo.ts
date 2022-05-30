@@ -1,3 +1,4 @@
+import { Ref } from "@vue/runtime-dom";
 import { defineStore } from "pinia";
 
 export const useTodoStore = defineStore("todo", {
@@ -19,6 +20,9 @@ export const useTodoStore = defineStore("todo", {
 		},
 		changeTaskStatus(taskIndex: number) {
 			this.tasks[taskIndex].done = !this.tasks[taskIndex].done;
+		},
+		changeTaskText(newText: string, taskIndex: number) {
+			this.tasks[taskIndex].text = newText.trim();
 		}
 	},
 	getters: {
