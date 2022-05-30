@@ -1,12 +1,8 @@
-import { Ref } from "@vue/runtime-dom";
 import { defineStore } from "pinia";
 
 export const useTodoStore = defineStore("todo", {
 	state: () => {
-		const tasks: Object[] = [
-			{ text: "Do the dishes", done: false },
-			{ text: "Code", done: true },
-		];
+		const tasks: Object[] = [{ text: "Give a star to the project :>", done: false }];
 
 		return { tasks };
 	},
@@ -22,15 +18,16 @@ export const useTodoStore = defineStore("todo", {
 			this.tasks[taskIndex].done = !this.tasks[taskIndex].done;
 		},
 		changeTaskText(newText: string, taskIndex: number) {
-			this.tasks[taskIndex].text = newText.trim();
-		}
+			if (newText) this.tasks[taskIndex].text = newText.trim();
+			else this.tasks[taskIndex].text = "🐢 No empty tasks!";
+		},
 	},
 	getters: {
 		getTasksTodo() {
-			return this.tasks.filter((task) => !task.done);
+			return this.tasks.filter((task) => !task.done) || [];
 		},
 		getDoneTasks() {
-			return this.tasks.filter((task) => task.done);
+			return this.tasks.filter((task) => task.done) || [];
 		},
 	},
 });

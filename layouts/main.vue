@@ -24,7 +24,13 @@ h2 {
 }
 
 ul {
-  @apply max-w-lg w-full;
+  @apply max-w-lg w-full text-center;
+  overflow-y: scroll;
+  max-height: 66vh;
+}
+
+ul::-webkit-scrollbar {
+  display: none;
 }
 
 @media screen and (min-width: 460px) {

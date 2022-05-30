@@ -3,17 +3,19 @@
     <template #addTaskForm><AddTask @add-todo="addTodo" /></template>
     <template #heading><span>Tasks to-do</span></template>
     <Task
-      v-for="(todo, index) in todos"
+      v-for="todo in todos || []"
       :key="todo.text"
-      :id="index"
       :taskProps="todo"
       @update-todos="updateTodos"
     />
+    <p v-if="showMessage" class="no-tasks">No tasks todo!</p>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
 import { useTodoStore } from "~~/store/todo";
+
+onBeforeMount(() => changeShowMessage());
 
 const store = useTodoStore();
 const todos = ref(store.getTasksTodo);
@@ -23,5 +25,13 @@ const addTodo = ({ text, done }) => {
   updateTodos();
 };
 
-const updateTodos = () => (todos.value = store.getTasksTodo);
+const showMessage = ref(false);
+
+const changeShowMessage = () =>
+  (showMessage.value = todos.value.length ? false : true);
+
+const updateTodos = () => {
+  todos.value = store.getTasksTodo;
+  changeShowMessage();
+};
 </script>
