@@ -1,3 +1,8 @@
+<template>
+  <Head><Title>LH's To-do App</Title></Head>
+  <NuxtPage />
+</template>
+
 <script lang="ts" setup>
 useHead({
   link: [
@@ -11,10 +16,8 @@ useHead({
       href: "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap",
       rel: "stylesheet",
     },
+    { rel: "icon", type: "image/png", href: "/favicon.png" },
   ],
 });
 </script>
 
-<template>
-    <NuxtPage />
-</template>

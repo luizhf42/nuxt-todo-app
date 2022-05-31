@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { useTodoStore } from "~~/store/todo";
-
 onBeforeMount(() => changeShowMessage());
 
 const store = useTodoStore();
