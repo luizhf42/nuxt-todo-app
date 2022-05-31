@@ -4,6 +4,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useTodoStore } from "./store/todo";
 useHead({
   link: [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -19,5 +20,7 @@ useHead({
     { rel: "icon", type: "image/png", href: "/favicon.png" },
   ],
 });
+
+onBeforeMount(() => useTodoStore().getTasksFromLocalStorage());
 </script>
 

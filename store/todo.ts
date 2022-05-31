@@ -2,15 +2,13 @@ import { defineStore } from "pinia";
 
 export const useTodoStore = defineStore("todo", {
 	state: () => {
-		const tasks: Object[] = [{ text: "Give a star to the project :>", done: false }];
-
+		const tasks = [];
 		return { tasks };
 	},
 	actions: {
 		addTaskInStore(text: string, done: boolean): void {
 			this.tasks.push({ text: text, done: done });
 		},
-
 		deleteTaskFromStore(taskIndex: number) {
 			this.tasks.splice(taskIndex, 1);
 		},
@@ -20,6 +18,24 @@ export const useTodoStore = defineStore("todo", {
 		changeTaskText(newText: string, taskIndex: number) {
 			if (newText) this.tasks[taskIndex].text = newText.trim();
 			else this.tasks[taskIndex].text = "🐢 No empty tasks!";
+		},
+		getTasksFromLocalStorage() {
+			const tasksInStorage = localStorage.getItem("tasks");
+			if (process.client) {
+				if (tasksInStorage) this.tasks = JSON.parse(tasksInStorage);
+				else
+					localStorage.setItem(
+						"tasks",
+						JSON.stringify([
+							{ text: "Give a star to the project :>", done: false },
+						])
+					);
+			}
+		},
+		updateTasksInLocalStorage() {
+			if (process.client) {
+				localStorage.setItem("tasks", JSON.stringify(this.tasks));
+			}
 		},
 	},
 	getters: {

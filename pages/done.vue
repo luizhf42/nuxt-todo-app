@@ -32,6 +32,7 @@ const changeShowMessage = () =>
 const updateDoneTasks = () => {
   doneTasks.value = store.getDoneTasks;
   changeShowMessage();
+  store.updateTasksInLocalStorage();
 };
 </script>
 

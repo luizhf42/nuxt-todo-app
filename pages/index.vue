@@ -33,5 +33,6 @@ const changeShowMessage = () =>
 const updateTodos = () => {
   todos.value = store.getTasksTodo;
   changeShowMessage();
+  store.updateTasksInLocalStorage();
 };
 </script>
