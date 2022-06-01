@@ -20,8 +20,8 @@ A common to-do app, made with Nuxt.js 3 and TailwindCSS. Users can add, edit, ma
 
 ### Screenshot
 
-![](./assets/screenshot.png)
-![](./assets/screenshot2.png)
+![](./assets/images/screenshot.png)
+![](./assets/images/screenshot2.png)
 
 ### Links
 
