@@ -25,7 +25,7 @@ A common to-do app, made with Nuxt.js 3 and TailwindCSS. Users can add, edit, ma
 
 ### Links
 
-- [Live Site URL](https://nuxt-todo-app-luizhf42.vercel.app/)
+- [Live Site URL](https://todo-app-luizhf42.vercel.app/)
 
 ## Process
 
